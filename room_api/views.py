@@ -24,15 +24,15 @@ class RoomBookingView(APIView):
             }, status=status.HTTP_409_CONFLICT)
 
         room.booked = True
-        room.booked_from = datetime.now()
-        room.booked_till = room.booked_from
+        room.start = datetime.now()
+        room.end = room.start
         room.save()
 
         return Response({
             "message": "Xona allaqachon boshqa bir mijoz tomonidan band qilingan!",
             "room": room.name,
-            "start": room.booked_from.strftime("%Y-%m-%d %H:%M:%S"),
-            "end": room.booked_till.strftime("%Y-%m-%d %H:%M:%S")
+            "start": room.start.strftime("%Y-%m-%d %H:%M:%S"),
+            "end": room.end.strftime("%Y-%m-%d %H:%M:%S")
         }, status=status.HTTP_201_CREATED)
 
 
